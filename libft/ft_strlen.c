@@ -3,26 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vde-melo <vde-melo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/21 14:09:39 by vde-melo          #+#    #+#             */
-/*   Updated: 2020/02/04 18:07:20 by vde-melo         ###   ########.fr       */
+/*   Created: 2020/08/24 21:55:35 by vde-melo          #+#    #+#             */
+/*   Updated: 2020/08/24 21:55:43 by vde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "libft.h"
 
-size_t		ft_strlen(const char *str)
+size_t	ft_strlen(const char *s)
 {
-	size_t	len;
-	char	*str1;
+	int i;
 
-	str1 = (char *)str;
-	len = 0;
-	while (*str1)
-	{
-		str1++;
-		len++;
-	}
-	return (len);
+	i = 0;
+	if (s == NULL)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
 }

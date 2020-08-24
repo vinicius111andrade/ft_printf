@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vde-melo <vde-melo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/24 14:10:38 by vde-melo          #+#    #+#             */
-/*   Updated: 2020/01/24 14:19:30 by vde-melo         ###   ########.fr       */
+/*   Created: 2020/08/24 21:53:39 by vde-melo          #+#    #+#             */
+/*   Updated: 2020/08/24 21:53:45 by vde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_toupper(int c)
+int	ft_toupper(int c)
 {
-	if (c > 96 && c < 123)
-		c = c - 32;
+	if (c >= 'a' && c <= 'z')
+		c -= 32;
 	return (c);
 }

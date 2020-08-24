@@ -3,37 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vde-melo <vde-melo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/28 17:04:35 by vde-melo          #+#    #+#             */
-/*   Updated: 2020/01/28 17:58:29 by vde-melo         ###   ########.fr       */
+/*   Created: 2020/08/24 21:56:08 by vde-melo          #+#    #+#             */
+/*   Updated: 2020/08/24 21:56:15 by vde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	t_len;
-	char	*str1;
-	char	*str2;
-	char	*str3;
-	char	*re;
+	char	*str;
+	int		i;
+	int		j;
 
+	i = 0;
+	j = 0;
 	if (!s1 || !s2)
 		return (0);
-	str1 = (char *)s1;
-	str2 = (char *)s2;
-	t_len = ft_strlen(str1) + ft_strlen(str2) + 1;
-	str3 = malloc(sizeof(char) * t_len);
-	if (!str3)
-		return (0);
-	re = str3;
-	while (*str1)
-		*str3++ = *str1++;
-	while (*str2)
-		*str3++ = *str2++;
-	*str3 = 0;
-	return (re);
+	if ((str = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char*))))
+	{
+		while (s1[i])
+		{
+			str[i] = s1[i];
+			i++;
+		}
+		while (s2[j])
+		{
+			str[i] = s2[j];
+			i++;
+			j++;
+		}
+		str[i] = '\0';
+		return (str);
+	}
+	return (0);
 }

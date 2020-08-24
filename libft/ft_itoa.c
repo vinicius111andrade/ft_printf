@@ -3,56 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vde-melo <vde-melo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/29 16:49:04 by vde-melo          #+#    #+#             */
-/*   Updated: 2020/01/29 17:10:33 by vde-melo         ###   ########.fr       */
+/*   Created: 2020/08/24 21:57:29 by vde-melo          #+#    #+#             */
+/*   Updated: 2020/08/24 21:57:41 by vde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_numchrs(long n)
+char	*make_itoa(int n, int count, char *str)
 {
-	int		i;
+	unsigned int	num;
 
-	i = 0;
-	if (n <= 0)
+	str[count] = 0;
+	count--;
+	num = (n > 0) ? n : -n;
+	while (num)
 	{
-		n *= -1;
-		i++;
+		str[count] = (num % 10) + '0';
+		num /= 10;
+		count--;
 	}
-	while (n > 0)
-	{
-		n = n / 10;
-		i++;
-	}
-	return (i);
+	if (!count)
+		str[count] = '-';
+	return (str);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
-	int		i;
-	int		len;
-	char	*s;
-	long	nb;
+	int				count;
+	unsigned int	num;
+	char			*str;
 
-	i = -1;
-	nb = n;
-	len = ft_numchrs(nb);
-	if (!(s = (char *)ft_calloc(len + 1, sizeof(char))))
-		return (0);
-	if (nb < 0)
+	count = (n > 0) ? 0 : 1;
+	num = (n > 0) ? n : -n;
+	if (n == 0)
 	{
-		s[0] = '-';
-		nb *= -1;
-		i++;
+		if (!(str = malloc(count + 1)))
+			return (NULL);
+		str[0] = '0';
+		str[1] = 0;
+		return (str);
 	}
-	s[len] = '\0';
-	while (--len > i)
+	while (num)
 	{
-		s[len] = (nb % 10) + 48;
-		nb /= 10;
+		count++;
+		num /= 10;
 	}
-	return (s);
+	if (!(str = malloc(count + 1)))
+		return (NULL);
+	return (make_itoa(n, count, str));
 }

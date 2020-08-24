@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vde-melo <vde-melo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:37:52 by user42            #+#    #+#             */
-/*   Updated: 2020/08/07 22:06:25 by user42           ###   ########.fr       */
+/*   Updated: 2020/08/24 22:19:03 by vde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /*
 **  sort_specs reads my specs struct a calls the right print function
 */
-
 static void     sort_specs(t_specs *specs, va_list ap)
 {
     if (ft_strchr(SPECIFIERS, specs->type))
@@ -72,7 +71,8 @@ static int      get_digit_aster(char *str, t_specs *specs, int i)
 
 /*
 **  create_specs initializes a struct with all properties set to 0
-**  except for precision that is initialized with -1, because...
+**  except for precision that is initialized with -1, because precision
+**  can have value equal to 0, so -1 means there is no precision value.
 */
 
 static t_specs  *create_specs(t_specs *specs)
@@ -97,7 +97,7 @@ static t_specs  *create_specs(t_specs *specs)
 **  If it never finds a % it returns 0.
 */
 
-static  t_specs *find_format(char *str, t_specs *specs)
+static t_specs  *find_format(char *str, t_specs *specs)
 {
     static int i;
     specs = create_specs(specs);
@@ -120,7 +120,7 @@ static  t_specs *find_format(char *str, t_specs *specs)
         }
         return (specs);
     }
-    i = 0; //isso aqui faz alguma coisa? acho q n mas to com medo kkk
+    i = 0;
     return (0);
 }
 
@@ -148,7 +148,7 @@ int             ft_printf(const char *orig_str, ...)
     specs = 0;
     str = (char *)orig_str;
     va_start(ap, orig_str);
-    while (specs = find_format(str, specs)) //quando q esse loop para?
+    while ((specs = find_format(str, specs)))
     {
         sort_specs(specs, ap);
         len += specs->len;

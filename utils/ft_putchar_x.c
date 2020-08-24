@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_putchar_x.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vde-melo <vde-melo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/23 18:49:19 by vde-melo          #+#    #+#             */
-/*   Updated: 2020/01/23 19:05:06 by vde-melo         ###   ########.fr       */
+/*   Created: 2020/08/24 21:19:55 by vde-melo          #+#    #+#             */
+/*   Updated: 2020/08/24 21:20:25 by vde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "../ft_printf.h"
 
-int		ft_isalnum(int c)
+int	ft_putchar_x(char c, unsigned int x)
 {
-	if (ft_isdigit(c) || ft_isalpha(c))
-		return (1);
-	else
-		return (0);
+	unsigned int i;
+
+	i = 0;
+	while (i < x)
+	{
+		write(1, &c, 1);
+		i++;
+	}
+	return (i);
 }

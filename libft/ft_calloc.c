@@ -3,22 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vde-melo <vde-melo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/24 14:56:11 by vde-melo          #+#    #+#             */
-/*   Updated: 2020/02/04 15:25:46 by vde-melo         ###   ########.fr       */
+/*   Created: 2020/08/24 21:58:29 by vde-melo          #+#    #+#             */
+/*   Updated: 2020/08/24 21:58:34 by vde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
+#include <string.h>
 
-void		*ft_calloc(size_t count, size_t size)
+void	*ft_calloc(unsigned long int count, unsigned long int size)
 {
-	void	*ptr;
+	void				*ptr;
+	unsigned long int	maxlen;
 
-	ptr = malloc(count * size);
-	if (!ptr)
+	maxlen = count * size;
+	if (!(ptr = malloc(maxlen)))
 		return (0);
-	ft_bzero(ptr, count * size);
+	ft_bzero(ptr, maxlen);
 	return (ptr);
 }

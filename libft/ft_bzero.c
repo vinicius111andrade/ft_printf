@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vde-melo <vde-melo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/24 14:39:50 by vde-melo          #+#    #+#             */
-/*   Updated: 2020/02/04 15:27:43 by vde-melo         ###   ########.fr       */
+/*   Created: 2020/08/24 21:58:58 by vde-melo          #+#    #+#             */
+/*   Updated: 2020/08/24 21:59:09 by vde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-
-void	ft_bzero(void *s, size_t n)
+void	ft_bzero(void *s, unsigned long int n)
 {
-	char	*str;
+	unsigned char		*str;
+	unsigned long int	i;
 
-	str = s;
-	while (n > 0)
+	i = 0;
+	str = (unsigned char*)s;
+	while (i < n)
 	{
-		n--;
-		*str = 0;
-		str++;
+		str[i] = '\0';
+		i++;
 	}
 }

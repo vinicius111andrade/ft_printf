@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vde-melo <vde-melo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/27 12:36:55 by vde-melo          #+#    #+#             */
-/*   Updated: 2020/01/27 13:56:54 by vde-melo         ###   ########.fr       */
+/*   Created: 2020/08/24 21:57:06 by vde-melo          #+#    #+#             */
+/*   Updated: 2020/08/24 21:57:11 by vde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 char	*ft_strchr(const char *s, int c)
 {
-	unsigned char	chr;
-	char			*str;
+	int		i;
+	char	*str;
 
-	chr = c;
-	str = (char *)s;
-	while (*str != '\0')
+	i = 0;
+	str = (char*)s;
+	while (str[i] != '\0')
 	{
-		if (*str == chr)
-			return (str);
-		str++;
+		if (str[i] == c)
+			return (&str[i]);
+		i++;
 	}
 	if (c == '\0')
-		return (str);
+		return (&str[i]);
 	return (0);
 }

@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vde-melo <vde-melo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/24 21:56:38 by vde-melo          #+#    #+#             */
-/*   Updated: 2020/08/24 21:56:43 by vde-melo         ###   ########.fr       */
+/*   Created: 2020/08/24 21:15:23 by vde-melo          #+#    #+#             */
+/*   Updated: 2020/08/24 21:16:29 by vde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../ft_printf.h"
 
-char	*ft_strdup(const char *s1)
+char	*ft_itoa_base(unsigned int value, size_t base)
 {
-	char	*str;
-	int		i;
+	int				i;
+	char			*str;
+	unsigned int	tmp;
 
 	i = 0;
-	if (!(str = (char *)malloc(ft_strlen(s1) + 1)))
-		return (0);
-	while (s1[i])
+	tmp = value;
+	while (tmp >= base)
 	{
-		str[i] = s1[i];
+		tmp = tmp / base;
 		i++;
 	}
-	str[i] = '\0';
+	if (!(str = (char *)ft_calloc((i + 1), sizeof(char))))
+		return (NULL);
+	while (i >= 0)
+	{
+		tmp = value % base;
+		str[i] = (tmp >= 10) ? tmp - 10 + 'a' : tmp + '0';
+		value /= base;
+		i--;
+	}
 	return (str);
 }

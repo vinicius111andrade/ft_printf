@@ -3,34 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vde-melo <vde-melo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/23 19:19:49 by vde-melo          #+#    #+#             */
-/*   Updated: 2020/02/17 17:09:13 by vde-melo         ###   ########.fr       */
+/*   Created: 2020/08/24 21:52:11 by vde-melo          #+#    #+#             */
+/*   Updated: 2020/08/24 21:52:29 by vde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int			ft_atoi(const char *str)
-{
-	int		sign;
-	int		index;
-	long	num;
+#include "libft.h"
 
-	num = 0;
-	sign = 1;
-	index = 0;
-	while ((str[index] > 8 && str[index] < 14) || (str[index] == 32))
-		index++;
-	if (str[index] == '-' || str[index] == '+')
+int	resp_atoi(const char *str, int signal)
+{
+	int i;
+	int resp;
+
+	i = 0;
+	resp = 0;
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (str[index] == '-')
-			sign = -1;
-		index++;
+		resp = (resp * 10) + str[i] - 48;
+		i++;
 	}
-	while (str[index] > 47 && str[index] < 58)
+	return (resp * signal);
+}
+
+int	ft_atoi(const char *str)
+{
+	int	i;
+	int signal;
+
+	i = 0;
+	signal = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
 	{
-		num *= 10;
-		num += str[index++] - 48;
+		i++;
 	}
-	return (num * sign);
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			signal *= -1;
+		i++;
+	}
+	return (resp_atoi((char *)&str[i], signal));
 }
