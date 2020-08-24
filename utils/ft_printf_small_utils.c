@@ -6,28 +6,28 @@
 /*   By: vde-melo <vde-melo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/10 20:38:09 by vde-melo          #+#    #+#             */
-/*   Updated: 2020/08/21 19:30:03 by vde-melo         ###   ########.fr       */
+/*   Updated: 2020/08/24 23:32:11 by vde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-int     ft_putstr(char *str)
+int		ft_putstr(char *str)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (str[i] != 0)
-    {
-        write(1, &str[i], 1);
-        i++;
-    }
-    return (i);
+	i = 0;
+	while (str[i] != 0)
+	{
+		write(1, &str[i], 1);
+		i++;
+	}
+	return (i);
 }
 
-int     ft_putchar(char c)
+int		ft_putchar(char c)
 {
-    return (write(1, &c, 1));
+	return (write(1, &c, 1));
 }
 
 /*
@@ -38,24 +38,24 @@ int     ft_putchar(char c)
 **  48 == '0', and 48 + 7 == '7'
 */
 
-void    ft_putnbr(int nb)
+void	ft_putnbr(int nb)
 {
-    unsigned int    nbr;
+	unsigned int	nbr;
 
-    if (nb < 0)
-    {
-        ft_putchar('-');
-        nbr = nb * -1;
-    }
-    else
-    {
-        nbr = nb;
-    }
-    if (nbr >= 10)
-    {
-        ft_putnbr(nbr / 10);
-    }
-    ft_putchar(nbr % 10 + 48);
+	if (nb < 0)
+	{
+		ft_putchar('-');
+		nbr = nb * -1;
+	}
+	else
+	{
+		nbr = nb;
+	}
+	if (nbr >= 10)
+	{
+		ft_putnbr(nbr / 10);
+	}
+	ft_putchar(nbr % 10 + 48);
 }
 
 /*
@@ -66,9 +66,9 @@ void    ft_putnbr(int nb)
 **  a digit
 */
 
-int     has_digit(int i, char *str)
+int		has_digit(int i, char *str)
 {
-    while (ft_isdigit(str[i]))
-        i++;
-    return (i);
+	while (ft_isdigit(str[i]))
+		i++;
+	return (i);
 }

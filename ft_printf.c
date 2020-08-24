@@ -6,35 +6,35 @@
 /*   By: vde-melo <vde-melo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 22:37:52 by user42            #+#    #+#             */
-/*   Updated: 2020/08/24 22:19:03 by vde-melo         ###   ########.fr       */
+/*   Updated: 2020/08/24 23:23:24 by vde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 /*
-**  sort_specs reads my specs struct a calls the right print function
+**  sort_spec reads my spec struct a calls the right print function
 */
-static void     sort_specs(t_specs *specs, va_list ap)
-{
-    if (ft_strchr(SPECIFIERS, specs->type))
-    {
-        if  (specs->type == 'c')
-            printc(specs, ap);
-        else if  (specs->type == 's')
-            prints(specs, ap);
-        else if  (specs->type == 'p')
-            printp(specs, ap);
-        else if  (specs->type == 'd' || specs->type == 'i')
-            printdi(specs, ap);
-        else if  (specs->type == 'u')
-            printu(specs, ap);
-        else if  (specs->type == 'x' || specs->type == 'X')
-            printx(specs, ap);
-        else if  (specs->type == '%')
-            printpercent(specs, ap);
 
-    }
+static void		sort_spec(t_spec *spec, va_list ap)
+{
+	if (ft_strchr(SPECIFIERS, spec->type))
+	{
+		if (spec->type == 'c')
+			printc(spec, ap);
+		else if (spec->type == 's')
+			prints(spec, ap);
+		else if (spec->type == 'p')
+			printp(spec, ap);
+		else if (spec->type == 'd' || spec->type == 'i')
+			printdi(spec, ap);
+		else if (spec->type == 'u')
+			printu(spec, ap);
+		else if (spec->type == 'x' || spec->type == 'X')
+			printx(spec, ap);
+		else if (spec->type == '%')
+			printpercent(spec, ap);
+	}
 }
 
 /*
@@ -43,7 +43,7 @@ static void     sort_specs(t_specs *specs, va_list ap)
 **
 **  has_digit is called a first time by find_format to look for width,
 **  it uses atoi to get the number if no number is found atoi returns 0,
-**  if a * is found it sets specs_asterisk_widht to 1 and inscreases,
+**  if a * is found it sets spec_asterisk_widht to 1 and inscreases,
 **  else it does nothing. Either way it returns i so that it can be called
 **  one more time to look for precision. ("width.precision" is the pattern)
 **
@@ -53,41 +53,41 @@ static void     sort_specs(t_specs *specs, va_list ap)
 **  i is also returned but it`s no longer used in find_format.
 */
 
-static int      get_digit_aster(char *str, t_specs *specs, int i)
+static int		get_digit_aster(char *str, t_spec *spec, int i)
 {
-    if (str[i - 1] == '.')
-    {
-        specs->precision = ft_atoi(&str[i]);
-        specs->asterisk_precision = (str[i] == '*') ? 1 && i++ : 0;
-    }
-    else
-    {
-        specs->width = ft_atoi (&str[i]);
-        specs->asterisk_width = (str[i] == '*') ? 1 && i++ : 0;
-    }
-    i = has_digit(i, str);
-    return (i);
+	if (str[i - 1] == '.')
+	{
+		spec->precision = ft_atoi(&str[i]);
+		spec->asterisk_precision = (str[i] == '*') ? 1 && i++ : 0;
+	}
+	else
+	{
+		spec->width = ft_atoi(&str[i]);
+		spec->asterisk_width = (str[i] == '*') ? 1 && i++ : 0;
+	}
+	i = has_digit(i, str);
+	return (i);
 }
 
 /*
-**  create_specs initializes a struct with all properties set to 0
+**  create_spec initializes a struct with all properties set to 0
 **  except for precision that is initialized with -1, because precision
 **  can have value equal to 0, so -1 means there is no precision value.
 */
 
-static t_specs  *create_specs(t_specs *specs)
+static t_spec	*create_spec(t_spec *spec)
 {
-    if (!(specs = malloc(sizeof(t_specs))))
-        return (0);
-    specs->asterisk_precision = 0;
-    specs->asterisk_width = 0;
-    specs->minus = 0;
-    specs->precision = -1;
-    specs->type = 0;
-    specs->zero = 0;
-    specs->width = 0;
-    specs->len = 0;
-    return (specs);
+	if (!(spec = malloc(sizeof(t_spec))))
+		return (0);
+	spec->asterisk_precision = 0;
+	spec->asterisk_width = 0;
+	spec->minus = 0;
+	spec->precision = -1;
+	spec->type = 0;
+	spec->zero = 0;
+	spec->width = 0;
+	spec->len = 0;
+	return (spec);
 }
 
 /*
@@ -97,63 +97,64 @@ static t_specs  *create_specs(t_specs *specs)
 **  If it never finds a % it returns 0.
 */
 
-static t_specs  *find_format(char *str, t_specs *specs)
+static t_spec	*find_format(char *str, t_spec *spec)
 {
-    static int i;
-    specs = create_specs(specs);
-    while (str[i])
-    {
-        if (!(str[i] == '%'))
-            specs->len += ft_putchar(str[i++]);
-        else
-        {
-            i++;
-            while (ft_strchr(FLAGS, str[i]))
-            {
-                (str[i] == '-') ? specs->minus = 1 : 0;
-                (str[i++] == '0') ? specs->zero = 1 : 0;
-            }
-            i = get_digit_aster(str, specs, i);
-            (str[i] == '.') ? i = get_digit_aster(str, specs, ++i) : 0;
-            specs->type = str[i++];
-            (specs->type == '\0') ? specs = 0 : 0;
-        }
-        return (specs);
-    }
-    i = 0;
-    return (0);
+	static int	i;
+
+	spec = create_spec(spec);
+	while (str[i])
+	{
+		if (!(str[i] == '%'))
+			spec->len += ft_putchar(str[i++]);
+		else
+		{
+			i++;
+			while (ft_strchr(FLAGS, str[i]))
+			{
+				(str[i] == '-') ? spec->minus = 1 : 0;
+				(str[i++] == '0') ? spec->zero = 1 : 0;
+			}
+			i = get_digit_aster(str, spec, i);
+			(str[i] == '.') ? i = get_digit_aster(str, spec, ++i) : 0;
+			spec->type = str[i++];
+			(spec->type == '\0') ? spec = 0 : 0;
+		}
+		return (spec);
+	}
+	i = 0;
+	return (0);
 }
 
 /*
 **  ft_printf is the core of it all.
 **
 **  find_format looks for a % if not found it prints a char and adds to
-**  specs->len, when something is found it returns the specs struct.
+**  spec->len, when something is found it returns the spec struct.
 **  If nothing is ever found returns 0.
 **
-**  sort_specs is then called everytime a % is found and the proper
-**  print is called, then len is actualized and specs freed.
+**  sort_spec is then called everytime a % is found and the proper
+**  print is called, then len is actualized and spec freed.
 **
 **  At the end va_end is called and len is returned.
 */
 
-int             ft_printf(const char *orig_str, ...)
+int				ft_printf(const char *orig_str, ...)
 {
-    char    *str;
-    int     len;
-    va_list ap;
-    t_specs *specs;
+	char	*str;
+	int		len;
+	va_list	ap;
+	t_spec	*spec;
 
-    len = 0;
-    specs = 0;
-    str = (char *)orig_str;
-    va_start(ap, orig_str);
-    while ((specs = find_format(str, specs)))
-    {
-        sort_specs(specs, ap);
-        len += specs->len;
-        free(specs);
-    }
-    va_end(ap);
-    return (len);
+	len = 0;
+	spec = 0;
+	str = (char *)orig_str;
+	va_start(ap, orig_str);
+	while ((spec = find_format(str, spec)))
+	{
+		sort_spec(spec, ap);
+		len += spec->len;
+		free(spec);
+	}
+	va_end(ap);
+	return (len);
 }
