@@ -25,7 +25,7 @@ typedef struct	s_spec
 {
 	int		minus;
 	int		zero;
-	char	type;
+	char		type;
 	int		precision;
 	int		width;
 	int		asterisk_width;
@@ -33,9 +33,9 @@ typedef struct	s_spec
 	int		len;
 }				t_spec;
 
-int				ft_printf(const char *format, ...);
-int				ft_putstr(char *str);
-int				ft_putchar(char c);
+int			ft_printf(const char *format, ...);
+int			ft_putstr(char *str);
+int			ft_putchar(char c);
 void			ft_putnb(int nb);
 void			printc(t_spec *specs, va_list ap);
 void			printdi(t_spec *specs, va_list ap);
@@ -44,13 +44,13 @@ void			prints(t_spec *specs, va_list ap);
 void			printu(t_spec *specs, va_list ap);
 void			printx(t_spec *specs, va_list ap);
 void			printpercent(t_spec *specs, va_list ap);
-int				ft_putchar_x(char c, unsigned int x);
+int			ft_putchar_x(char c, unsigned int x);
 char			*r_str_x(char c, unsigned int x);
-int				has_digit(int i, char *str);
+int			has_digit(int i, char *str);
 char			*ft_itoa_base(unsigned int value, size_t base);
 char			*ft_itoa_base2(size_t value, size_t base);
-int				ft_cs(char *str, int c, int x, int time);
-int				get_nbr(int nbr);
+int			ft_cs(char *str, int c, int x, int time);
+int			get_nbr(int nbr);
 char			*ft_str_until(char *str, int len, int until);
 
 #endif
