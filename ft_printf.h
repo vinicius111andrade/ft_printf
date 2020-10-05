@@ -31,7 +31,7 @@ typedef struct	s_spec
 	int		asterisk_width;
 	int		asterisk_precision;
 	int		len;
-}				t_spec;
+}		t_spec;
 
 int			ft_printf(const char *format, ...);
 int			ft_putstr(char *str);
